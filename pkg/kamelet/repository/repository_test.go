@@ -20,6 +20,7 @@ package repository
 import (
 	"context"
 	"fmt"
+	"os"
 	"testing"
 
 	v1 "github.com/apache/camel-k/v2/pkg/apis/camel/v1"
@@ -143,6 +144,9 @@ func TestNewRepository(t *testing.T) {
 }
 
 func TestNewRepositoryWithCamelKamelets(t *testing.T) {
+	if os.Getenv("GITHUB_TOKEN") == "" {
+		t.Skip("WARNING: This test requires GITHUB_TOKEN env var")
+	}
 	ctx := context.Background()
 	fakeClient := fake.NewSimpleClientset(createTestContext("github:apache/camel-kamelets/kamelets")...)
 	repo, err := New(ctx, fakeClient, "test")

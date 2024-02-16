@@ -154,4 +154,3 @@ runs:
       shell: bash
       run: |
         mvn clean deploy --settings ../../.github/asf-deploy-settings.xml -q
-
